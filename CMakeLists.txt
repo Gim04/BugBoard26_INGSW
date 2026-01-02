@@ -10,6 +10,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
 # LIBS
 include(FetchContent)
 
@@ -29,7 +33,12 @@ if (NOT Catch2_FOUND)
 endif()
 
 
-add_executable(bugboard src/main.cpp)
+file(GLOB_RECURSE SOURCES 
+    ${CMAKE_SOURCE_DIR}/src/*.cpp
+    ${CMAKE_SOURCE_DIR}/src/*.hpp
+    ${CMAKE_SOURCE_DIR}/src/*.h)
+
+add_executable(bugboard ${SOURCES})
 target_link_libraries(bugboard PRIVATE Qt6::Core Qt6::Widgets)
 
 enable_testing()

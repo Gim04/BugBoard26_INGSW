@@ -1,30 +1,25 @@
 #include <QApplication>
-#include <QPushButton>
 #include <QWidget>
+#include <QStackedWidget>
+#include "Widgets/Login.h"
+#include "Widgets/Register.h"
 
-class A {
-    int VALUE;
-    int value;
-public:
-    int getValue() { return value; } // dovrebbe essere int getValue() const
-};
+QStackedWidget* stack;
 
-
-
-
-// TODO: Implement a simple Qt application that creates a window with a button.
-int main(int argc, char *argv[]) {
-
-    for (int i = 0; i < 42; ++i) {}
+int main(int argc, char *argv[])
+{
     QApplication app(argc, argv);
 
-    QWidget window;
-    window.setWindowTitle("Simple Qt Application");
-    window.resize(300, 200);
+    stack = new QStackedWidget();
 
-    QPushButton button("Click Me", &window);
-    button.setGeometry(100, 80, 100, 30);
+    RegisterPage registerPage;
+    LoginPage loginPage;
 
-    window.show();
+    stack->addWidget(&registerPage);
+    stack->addWidget(&loginPage);
+
+    stack->setCurrentIndex(0);
+    stack->show();
+    
     return app.exec();
 }
